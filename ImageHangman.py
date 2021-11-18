@@ -1,27 +1,29 @@
 import pygame
 import math
+import random
 
-#setup display
+#Set up the display
 pygame.init() #initializing pygame
-WIDTH, HEIGHT = 800, 500 #define the dimensions of our screen
-win = pygame.display.set_mode((WIDTH, HEIGHT)) #capitals to represent constant values, this takes a tuple
+WIDTH, HEIGHT = 725, 500 #defining the dimensions of the screen
+win = pygame.display.set_mode((WIDTH, HEIGHT)) #set the window to this width and height
 pygame.display.set_caption("Hangman Game!")
 
-# button variables
+#Button variables
 RADIUS = 20
 GAP = 15
-letters = [] #where you store created buttons [x, y, letter]
-startx = round(WIDTH - ((RADIUS * 2 + GAP) * 13) / 2)
+letters = [] #list that stores created buttons [x, y, chr(A+i), True]
+startx = round(WIDTH - ((RADIUS * 2 + GAP) * 13)) #Width of screen - (diameter of 13 buttons w/ gap's in between) = starting position
 starty = 400
-A = 65 #A = 65, B = 66...
-for i in range(26):
-    x = startx + GAP * 2 + ((RADIUS * 2 + GAP)* (i % 13)) #each loop, i tells us what button we're on,
+A = 65 #A = 65, B = 66, C = 67... that is why we do chr(A+i) - character that corresponds to 65, 66, 67...
+
+for i in range(26): #for the 26 letters of the alphabet, store where it should be positioned
+    x = startx + GAP * 2 + ((RADIUS * 2 + GAP)* (i % 13))
+    # each loop, i tells us what button we're on,
     #GAP * 2 so you are not directly on sides of screen, simulate having two rows with i%13, (RADIUS* 2 + GAP) = distance between each button
-    y = starty + ((i // 13) * (GAP + RADIUS * 2))
-    #integer division with i//13
+    y = starty + ((i // 13) * (GAP + RADIUS * 2)) #integer division with i//13
     letters.append([x,y,chr(A + i), True]) #pairs of x, y values into the list, store 4 things in each letter
 
-#fonts
+#Fonts
 LETTER_FONT = pygame.font.SysFont('comicsans',40)
 WORD_FONT = pygame.font.SysFont('comicsans',60)
 TITLE_FONT = pygame.font.SysFont('comicsans',70)
@@ -34,14 +36,15 @@ for i in range(7): #loop 0, 1,2,3,4,5,
 
 #game variables
 hangman_status = 0
-word = "DEVELOPER"
-guessed = [] #keeps track of what letters we have guessed so far
+words = ["PYTHON", "PIZZA", "JAMES"]
+word = random.choice(words) #selects a random word from word list
+guessed = [] #list that keeps track of what letters we have guessed so far
 
-#colors
+#Colors and their coordinates
 WHITE = (255,255,255)
 BLACK = (0, 0 , 0)
 
-#set up game loop
+#Set up game loop
 FPS = 60 #maximum FPS 60 frames/second
 clock = pygame.time.Clock()
 run = True
@@ -50,7 +53,7 @@ def draw(): #drawing function,need to call draw() to do this
     win.fill(WHITE)
 
     #draw title
-    text = TITLE_FONT.render("DEVELOPER HANGMAN", 1, BLACK)
+    text = TITLE_FONT.render("HANGMAN!", 1, BLACK)
     win.blit(text,(WIDTH/2 - text.get_width()/2, 20))
 
     #draw word
@@ -74,18 +77,17 @@ def draw(): #drawing function,need to call draw() to do this
     win.blit(images[hangman_status], (150, 100))  # blit stands for draw image, surface
     pygame.display.update()
 
-def display_mesage(message):
+def display_message(message):
     pygame.time.delay(1000) #wait one sec. bf drawing anything
-    win.fill(WHITE)  # override everyting on the screen
+    win.fill(WHITE)  # override everything on the screen
     text = WORD_FONT.render(message, 1, BLACK)
-    win.blit(text, (WIDTH / 2 - text.get_width() / 2), HEIGHT / 2 - text.get_height() / 2)
+    win.blit(text, (WIDTH/2 - text.get_width() / 2), HEIGHT/2 - text.get_height() / 2)
     pygame.display.update()
     pygame.time.delay(3000)  # 3 seconds
 
 
 while run:
     clock.tick(FPS) #tick at this speed
-    draw() #will run the code in draw
     for event in pygame.event.get():
         if event.type == pygame.QUIT: #when you click red x button on window
             run = False
@@ -102,6 +104,7 @@ while run:
                         guessed.append(ltr) #adds the letter to the screen if its in the word
                         if ltr not in word: #if you guess a letter that is NOT in the word
                             hangman_status += 1
+    draw() #will run the code in draw
 
     won = True
     for letter in word: #if we loop through every letter in word and all are in guessed, won stays True
