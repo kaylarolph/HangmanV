@@ -2,19 +2,27 @@ import pygame
 import math
 import random
 
-#Set up the display
-pygame.init() #initializing pygame
-WIDTH, HEIGHT = 725, 500 #defining the dimensions of the screen
-win = pygame.display.set_mode((WIDTH, HEIGHT)) #set the window to this width and height
-pygame.display.set_caption("Hangman Game!")
+pygame.init()
+WIDTH, HEIGHT = 1500, 1000 #defining the dimensions of the screen #725, 500
+win = pygame.display.set_mode((WIDTH,HEIGHT)) #set the window to this width and height
+pygame.display.set_caption("Let's play Hangman!")
 
-#Button variables
+#Various fonts with different sizes
+LETTER_FONT = pygame.font.SysFont('comicsans',40)
+WORD_FONT = pygame.font.SysFont('comicsans',60)
+TITLE_FONT = pygame.font.SysFont('comicsans',70)
+
+#Colors and corresponding coordinates
+WHITE = (255,255,255)
+BLACK = (0, 0 , 0)
+
+#Setting up the buttons for letters A-Z
 RADIUS = 20
 GAP = 15
-letters = [] #list that stores created buttons [x, y, chr(A+i), True]
+letters = [] #List that stores created buttons [x, y, chr(A+i), True]
 startx = round(WIDTH - ((RADIUS * 2 + GAP) * 13)) #Width of screen - (diameter of 13 buttons w/ gap's in between) = starting position
 starty = 400
-A = 65 #A = 65, B = 66, C = 67... that is why we do chr(A+i) - character that corresponds to 65, 66, 67...
+A = 65 #A = 65, B = 66, C = 67,  chr(A+i) - character that corresponds to 65, 66, 67...
 
 for i in range(26): #for the 26 letters of the alphabet, store where it should be positioned
     x = startx + GAP * 2 + ((RADIUS * 2 + GAP)* (i % 13))
@@ -23,38 +31,28 @@ for i in range(26): #for the 26 letters of the alphabet, store where it should b
     y = starty + ((i // 13) * (GAP + RADIUS * 2)) #integer division with i//13
     letters.append([x,y,chr(A + i), True]) #pairs of x, y values into the list, store 4 things in each letter
 
-#Fonts
-LETTER_FONT = pygame.font.SysFont('comicsans',40)
-WORD_FONT = pygame.font.SysFont('comicsans',60)
-TITLE_FONT = pygame.font.SysFont('comicsans',70)
-
-# load images
+#Loading the hangman images - 7 of them
 images = []
-for i in range(7): #loop 0, 1,2,3,4,5,
-    image = pygame.image.load("images2/hangman" + str(i) + ".png")
+for i in range(7): #loop 0,1,2,3,4,5
+    image = pygame.image.load("HangmanImages/IMG_" + str(7521 + i) + ".jpg") #first image is IMG_7521.jpg, second is 7522..
     images.append(image)
 
-#game variables
+#Game variables
 hangman_status = 0
 words = ["PYTHON", "PIZZA", "JAMES"]
 word = random.choice(words) #selects a random word from word list
-guessed = [] #list that keeps track of what letters we have guessed so far
-
-#Colors and their coordinates
-WHITE = (255,255,255)
-BLACK = (0, 0 , 0)
+guessed = [] #list that keeps track of letters guessed so far
 
 #Set up game loop
 FPS = 60 #maximum FPS 60 frames/second
 clock = pygame.time.Clock()
-run = True
+run = True #boolean that is important!
 
 def draw(): #drawing function,need to call draw() to do this
-    win.fill(WHITE)
-
+    win.fill(WHITE) #fill the window with white!
     #draw title
     text = TITLE_FONT.render("HANGMAN!", 1, BLACK)
-    win.blit(text,(WIDTH/2 - text.get_width()/2, 20))
+    win.blit(text,(WIDTH/2 - text.get_width()/2, 20)) #text, (x, y) positions
 
     #draw word
     display_word = ""
@@ -64,7 +62,7 @@ def draw(): #drawing function,need to call draw() to do this
         else: #do not display it, if not in word
             display_word += "_ "
     text = WORD_FONT.render(display_word, 1, BLACK)
-    win.blit(text,(400, 200))
+    win.blit(text,(900, 200)) #400, 200
 
     #draw buttons
     for letter in letters:
@@ -74,7 +72,7 @@ def draw(): #drawing function,need to call draw() to do this
             text = LETTER_FONT.render(ltr, 1, BLACK)
             win.blit(text,(x - text.get_width()/2,y - text.get_height()/2))
         #you want to draw the letters in the middle of button- go backwards and up
-    win.blit(images[hangman_status], (150, 100))  # blit stands for draw image, surface
+    win.blit(images[hangman_status],(50,60))  # blit stands for draw image, surface
     pygame.display.update()
 
 def display_message(message):
