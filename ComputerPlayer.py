@@ -1,5 +1,5 @@
 
-
+import random
 
 class ComputerPlayer:
     def list(self, list):
@@ -19,14 +19,18 @@ class ComputerPlayer:
             'hair',]
         return list
 
-    def getWord(self,list):
-        word = random.choice(list)
-        return word.upper()
+    def placeUnderscore(self):
+        words = ("variable", "python", "turtle", "string", "loop")
+        word = random.choice(words)  # chooses randomly from the choice of words
+        print("The word is", len(word), "letters long.")  # used to show how many letters# are in the random word
+        displayWord = ""
+        letter = ''
+        guessed = False
+        for letter in word:
+            if letter in guessed:
+                displayWord +=letter + " "
+            else:
+                displayWord +="_ "
+        print()
 
-
-    def play(self,word):
-        word_completion = "_" * len(word)
-        print("Let's play Hangman!")
-        print(word_completion)
-        print("\n")
 
