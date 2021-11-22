@@ -39,9 +39,14 @@ for i in range(7): #loop 0,1,2,3,4,5
 
 #Game variables
 hangman_status = 0
-words = ["PYTHON", "PIZZA", "JAMES"]
+#word= string(input("enter a random word!"))
+words = ["PYTHON", "PIZZA", "JAMES", "APPLE", "BANANA", "BLANKET", "COMPUTER", "EYE", "DOG", "CAT", "SHOE", "MAT", "PIZZA", "CUP",
+         "YELLOW", "RED", "GREEN", "BLUE", "SELECT", "CAP", "USA", "FEUD", "VIRGINIA", "MARYLAND", "UTAH", "PANTS", "FACE", "ADVANCED", "THERAPY",
+         "CLINICALLY", "PROVEN", "HEALTHY", "OINTMENT", "RECOMMENDED", "TEACHER", "STUDENT", "CARDIGAN", "HOT", "COLD", "TISSUE", "SWEATER",
+         "INTEREST", "COMPUTER", "PUSH", "HAIR", "BLONDE"]
 word = random.choice(words) #selects a random word from word list
 guessed = [] #list that keeps track of letters guessed so far
+
 
 #Set up game loop
 FPS = 60 #maximum FPS 60 frames/second
