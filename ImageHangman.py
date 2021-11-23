@@ -43,7 +43,8 @@ hangman_status = 0
 words = ["PYTHON", "PIZZA", "JAMES", "APPLE", "BANANA", "BLANKET", "COMPUTER", "EYE", "DOG", "CAT", "SHOE", "MAT", "PIZZA", "CUP",
          "YELLOW", "RED", "GREEN", "BLUE", "SELECT", "CAP", "USA", "FEUD", "VIRGINIA", "MARYLAND", "UTAH", "PANTS", "FACE", "ADVANCED", "THERAPY",
          "CLINICALLY", "PROVEN", "HEALTHY", "OINTMENT", "RECOMMENDED", "TEACHER", "STUDENT", "CARDIGAN", "HOT", "COLD", "TISSUE", "SWEATER",
-         "INTEREST", "COMPUTER", "PUSH", "HAIR", "BLONDE"]
+         "INTEREST", "COMPUTER", "PUSH", "HAIR", "BLONDE", "BLOCK", "WORK", "MASK", "ROBOT", "PROFESSIONAL", "TOUCH", "HAT",
+         ]
 word = random.choice(words) #selects a random word from word list
 guessed = [] #list that keeps track of letters guessed so far
 
