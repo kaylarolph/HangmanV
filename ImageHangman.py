@@ -3,8 +3,8 @@ import math
 import random
 
 pygame.init()
-WIDTH, HEIGHT = 1500, 1000 #defining the dimensions of the screen #725, 500
-win = pygame.display.set_mode((WIDTH,HEIGHT)) #set the window to this width and height
+WIDTH, HEIGHT = 725, 500 #defining the dimensions of the screen #725, 500
+window = pygame.display.set_mode((WIDTH,HEIGHT)) #set the window to this width and height
 pygame.display.set_caption("Let's play Hangman!")
 
 #Various fonts with different sizes
@@ -33,8 +33,9 @@ for i in range(26): #for the 26 letters of the alphabet, store where it should b
 
 #Loading the hangman images - 7 of them
 images = []
-for i in range(7): #loop 0,1,2,3,4,5
-    image = pygame.image.load("HangmanImages/IMG_" + str(7521 + i) + ".jpg") #first image is IMG_7521.jpg, second is 7522..
+for i in range(9): #loop 0,1,2,3,4,5,6,7,8,9
+    image = pygame.image.load("Hangman_Images!/Hangman_Images! (" +  str(1+i) + ").png")
+    #image = pygame.image.load("HangmanImages/IMG_" + str(7521 + i) + ".jpg") #first image is IMG_7521.jpg, second is 7522..
     images.append(image)
 
 #Game variables
@@ -54,10 +55,7 @@ clock = pygame.time.Clock()
 run = True #boolean that is important!
 
 def draw(): #drawing function,need to call draw() to do this
-    win.fill(WHITE) #fill the window with white!
-    #draw title
-    text = TITLE_FONT.render("HANGMAN!", 1, BLACK)
-    win.blit(text,(WIDTH/2 - text.get_width()/2, 20)) #text, (x, y) positions
+    window.fill(WHITE) #fill the window with white!
 
     #draw word
     display_word = ""
@@ -67,26 +65,33 @@ def draw(): #drawing function,need to call draw() to do this
         else: #do not display it, if not in word
             display_word += "_ "
     text = WORD_FONT.render(display_word, 1, BLACK)
-    win.blit(text,(900, 200)) #400, 200
+    window.blit(text,(400, 200))
 
     #draw buttons
     for letter in letters:
         x, y, ltr, visible = letter
         if visible: #by default, all buttons are visible (cause true)
-            pygame.draw.circle(win, BLACK, (x,y), RADIUS, 3) #3 thick
+            pygame.draw.circle(window, BLACK, (x,y), RADIUS, 3) #3 thick
             text = LETTER_FONT.render(ltr, 1, BLACK)
-            win.blit(text,(x - text.get_width()/2,y - text.get_height()/2))
+            window.blit(text,(x - text.get_width()/2,y - text.get_height()/2))
         #you want to draw the letters in the middle of button- go backwards and up
-    win.blit(images[hangman_status],(50,60))  # blit stands for draw image, surface
+    window.blit(images[hangman_status],(50,60))  # blit stands for draw image, surface
     pygame.display.update()
 
 def display_message(message):
     pygame.time.delay(1000) #wait one sec. bf drawing anything
-    win.fill(WHITE)  # override everything on the screen
-    text = WORD_FONT.render(message, 1, BLACK)
-    win.blit(text, (WIDTH/2 - text.get_width() / 2), HEIGHT/2 - text.get_height() / 2)
+    window.fill(WHITE)  # override everything on the screen
+    text = WORD_FONT.render(message, True, BLACK)
+    window.blit(text, (WIDTH/2 - text.get_width()/2), HEIGHT/2 - text.get_height()/2) #theoretically the middle?
     pygame.display.update()
     pygame.time.delay(3000)  # 3 seconds
+
+#window.fill(WHITE)
+#message = "Welcome to Hangman! You have 8 tries to guess the computer generated word. Please press enter to begin."
+#text = LETTER_FONT.render(message, True, BLACK)
+#window.blit(text,  )
+#pygame.time.delay(1000)
+
 
 
 while run:
@@ -118,7 +123,7 @@ while run:
         display_message("You WON!")
         break
 
-    if hangman_status == 6: #full limbs - you have lost! may need to change this number
+    if hangman_status == 8: #full limbs - you have lost! may need to change this number
         display_message("You LOST!")
         break
 
