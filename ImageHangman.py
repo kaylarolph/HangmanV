@@ -40,14 +40,23 @@ for i in range(9): #loop 0,1,2,3,4,5,6,7,8,9
 
 #Game variables
 hangman_status = 0
-#word= string(input("enter a random word!"))
-words = ["PYTHON", "PIZZA", "JAMES", "APPLE", "BANANA", "BLANKET", "COMPUTER", "EYE", "DOG", "CAT", "SHOE", "MAT", "PIZZA", "CUP",
+wordList = ["PYTHON", "PIZZA", "JAMES", "APPLE", "BANANA", "BLANKET", "COMPUTER", "EYE", "DOG", "CAT", "SHOE", "MAT", "PIZZA", "CUP",
          "YELLOW", "RED", "GREEN", "BLUE", "SELECT", "CAP", "USA", "FEUD", "VIRGINIA", "MARYLAND", "UTAH", "PANTS", "FACE", "ADVANCED", "THERAPY",
          "CLINICALLY", "PROVEN", "HEALTHY", "OINTMENT", "RECOMMENDED", "TEACHER", "STUDENT", "CARDIGAN", "HOT", "COLD", "TISSUE", "SWEATER",
          "INTEREST", "COMPUTER", "PUSH", "HAIR", "BLONDE", "BLOCK", "WORK", "MASK", "ROBOT", "PROFESSIONAL", "TOUCH", "HAT",
          ]
-word = random.choice(words) #selects a random word from word list
 guessed = [] #list that keeps track of letters guessed so far
+
+
+def selectRandomWord(wordList): #this function selects a random string from the the list of available strings
+    indexOfWord = random.randint(0, len(wordList) - 1)
+    return wordList[indexOfWord]
+
+word = selectRandomWord(wordList)
+
+
+
+
 
 
 #Set up game loop
@@ -65,7 +74,7 @@ def draw(): #drawing function,need to call draw() to do this
             display_word += letter + "  "
         else: #do not display it, if not in word
             display_word += "_ "
-    text = WORD_FONT.render(display_word, 1, BLACK)
+    text = WORD_FONT.render(display_word, True, BLACK)
     window.blit(text,(400, 200))
 
     #draw buttons
