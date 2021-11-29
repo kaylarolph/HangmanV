@@ -3,21 +3,25 @@ import math
 import sys
 import random
 
+#Initial Settings and baseline Variables
 pygame.init()
-WIDTH, HEIGHT = 725, 500 #defining the dimensions of the screen #725, 500
-window = pygame.display.set_mode((WIDTH,HEIGHT)) #set the window to this width and height
-pygame.display.set_caption("Let's play Hangman!")
 
-#Various fonts with different sizes
+    #Defining the dimensions of the screen
+WIDTH = 725
+HEIGHT = 500
+window = pygame.display.set_mode((WIDTH,HEIGHT)) #the window has the dimensions defined
+pygame.display.set_caption("Hangman")
+
+    #Various fonts with varying sizes
 LETTER_FONT = pygame.font.SysFont('comicsans',38)
 WORD_FONT = pygame.font.SysFont('comicsans',60)
 TITLE_FONT = pygame.font.SysFont('comicsans',70)
 
-#Colors and corresponding coordinates
+    #Colors and their corresponding coordinates
 WHITE = (255,255,255)
 BLACK = (0, 0 , 0)
 
-#Setting up the buttons for letters A-Z
+    #Buttons for letters A-Z
 RADIUS = 20
 GAP = 15
 letters = [] #List that stores created buttons [x, y, chr(A+i), True]
@@ -32,39 +36,30 @@ for i in range(26): #for the 26 letters of the alphabet, store where it should b
     y = starty + ((i // 13) * (GAP + RADIUS * 2)) #integer division with i//13
     letters.append([x,y,chr(A + i), True]) #pairs of x, y values into the list, store 4 things in each letter
 
-#Loading the hangman images - 7 of them
+#Loading the hangman images from the uploaded folder
 images = []
 for i in range(9): #loop 0,1,2,3,4,5,6,7,8,9
     image = pygame.image.load("Hangman_Images!/Hangman_Images! (" +  str(1+i) + ").png")
     #image = pygame.image.load("HangmanImages/IMG_" + str(7521 + i) + ".jpg") #first image is IMG_7521.jpg, second is 7522..
     images.append(image)
 
-#Game variables
-hangman_status = 0
+hangman_status = 0 #put this where it is more obviously relevant
+guessed = [] #list that keeps track of letters guessed so far
+
+    #Computer generated words
 wordList = ["PYTHON", "PIZZA", "JAMES", "APPLE", "BANANA", "BLANKET", "COMPUTER", "EYE", "DOG", "CAT", "SHOE", "MAT", "PIZZA", "CUP",
          "YELLOW", "RED", "GREEN", "BLUE", "SELECT", "CAP", "USA", "FEUD", "VIRGINIA", "MARYLAND", "UTAH", "PANTS", "FACE", "ADVANCED", "THERAPY",
          "CLINICALLY", "PROVEN", "HEALTHY", "OINTMENT", "RECOMMENDED", "TEACHER", "STUDENT", "CARDIGAN", "HOT", "COLD", "TISSUE", "SWEATER",
          "INTEREST", "COMPUTER", "PUSH", "HAIR", "BLONDE", "BLOCK", "WORK", "MASK", "ROBOT", "PROFESSIONAL", "TOUCH", "HAT",
          ]
-guessed = [] #list that keeps track of letters guessed so far
 
 
+#Functions or methods - what are these called
 def selectRandomWord(wordList): #this function selects a random string from the the list of available strings
     indexOfWord = random.randint(0, len(wordList) - 1)
     return wordList[indexOfWord]
 
-#word = selectRandomWord(wordList)
-
-
-
-
-
-#Set up game loop
-FPS = 60 #maximum FPS 60 frames/second
-clock = pygame.time.Clock()
-run = True #boolean that is important!
-
-def draw(): #drawing function,need to call draw() to do this
+def draw(): #this function draws the guessed letters and buttons onto the screen
     window.fill(WHITE) #fill the window with white!
 
     #draw word
@@ -88,7 +83,7 @@ def draw(): #drawing function,need to call draw() to do this
     window.blit(images[hangman_status],(0,0))  # blit stands for draw image, surface
     pygame.display.update()
 
-def display_message(message):
+def display_message(message): #This function overrides the screen and tells the user if they won or lost
     pygame.time.delay(1000) #wait one sec. bf drawing anything
     window.fill(WHITE)  # override everything on the screen
     text = WORD_FONT.render(message, True, BLACK)
@@ -98,10 +93,10 @@ def display_message(message):
 
 
 
-#the actual Code is here
+#The actual code begins here
 
-keypressed = True #while key has not been pressed
-while keypressed:
+keynotpressed = True #key has not been pressed
+while keynotpressed:
     window.fill(WHITE)
     message = "Welcome to Hangman! You have 8 tries to guess the" #two messages bc it does not all fit in one line
     message2 = "computer generated word. Please press enter to begin."
@@ -116,13 +111,13 @@ while keypressed:
             pygame.quit()
             sys.exit()
         if event.type == pygame.KEYDOWN: #if a key has been pressed down, the code will proceed & show the hangman display
-            keypressed = False
+            keynotpressed = False
             break
-            
+
 word = selectRandomWord(wordList)
+run = True
 
 while run:
-    clock.tick(FPS) #tick at this speed
     for event in pygame.event.get():
         if event.type == pygame.QUIT: #when you click red x button on window
             run = False
