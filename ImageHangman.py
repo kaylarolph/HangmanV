@@ -48,10 +48,10 @@ while done == False:
     guessed = [] #list that keeps track of letters guessed so far
 
         #Computer generated words
-    wordList = ["PYTHON", "PIZZA", "JAMES", "APPLE", "BANANA", "BLANKET", "COMPUTER", "EYE", "DOG", "CAT", "SHOE", "MAT", "PIZZA", "CUP",
-            "YELLOW", "RED", "GREEN", "BLUE", "SELECT", "CAP", "USA", "FEUD", "VIRGINIA", "MARYLAND", "UTAH", "PANTS", "FACE", "ADVANCED", "THERAPY",
-            "CLINICALLY", "PROVEN", "HEALTHY", "OINTMENT", "RECOMMENDED", "TEACHER", "STUDENT", "CARDIGAN", "HOT", "COLD", "TISSUE", "SWEATER",
-            "INTEREST", "COMPUTER", "PUSH", "HAIR", "BLONDE", "BLOCK", "WORK", "MASK", "ROBOT", "PROFESSIONAL", "TOUCH", "HAT",
+    wordList = ["PYTHON", "PIZZA", "JAMES", "APPLE", "BANANA", "BLANKET", "EYE", "DOG", "CAT", "SHOE", "MAT", "PIZZA", "CUP",
+            "YELLOW", "RED", "GREEN", "BLUE", "SELECT", "CAP", "USA", "FEUD", "UTAH", "PANTS", "FACE", "ADVANCED", "THERAPY",
+             "PROVEN", "HEALTHY", "TEACHER", "STUDENT", "HOT", "COLD", "TISSUE", "SWEATER",
+              "PUSH", "HAIR", "BLONDE", "BLOCK", "WORK", "MASK", "ROBOT", "TOUCH", "HAT", "ENTER", "TABLE", "CHAIR"
             ]
 
 
