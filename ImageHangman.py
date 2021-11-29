@@ -14,7 +14,7 @@ while done == False:
     pygame.display.set_caption("Hangman")
 
     #Various fonts with varying sizes
-    LETTER_FONT = pygame.font.SysFont('comicsans',27)
+    LETTER_FONT = pygame.font.SysFont('comicsans',38)
     WORD_FONT = pygame.font.SysFont('comicsans',60)
     TITLE_FONT = pygame.font.SysFont('comicsans',70)
 
@@ -60,29 +60,8 @@ while done == False:
         indexOfWord = random.randint(0, len(wordList) - 1)
         return wordList[indexOfWord]
 
-    def draw(): #this function draws the guessed letters and buttons onto the screen
-        window.fill(WHITE) #fill the window with white!
+   # def draw(): #this function draws the guessed letters and buttons onto the screen
 
-        #draw word
-        display_word = ""
-        for letter in word: #eg. in DEVELOPER, D, E, V,E L...
-            if letter in guessed:
-                display_word += letter + " "
-            else: #do not display it, if not in word
-                display_word += "_ "
-        text = WORD_FONT.render(display_word, True, BLACK)
-        window.blit(text,(350, 200))
-
-        #draw buttons
-        for letter in letters:
-            x, y, ltr, visible = letter
-            if visible: #by default, all buttons are visible (cause true)
-                pygame.draw.circle(window, BLACK, (x,y), RADIUS, 3) #3 thick
-                text = LETTER_FONT.render(ltr, 1, BLACK)
-                window.blit(text,(x - text.get_width()/2,y - text.get_height()/2))
-            #you want to draw the letters in the middle of button- go backwards and up
-        window.blit(images[hangman_status],(0,0))  # blit stands for draw image, surface
-        pygame.display.update()
 
     def display_message(message): #This function overrides the screen and tells the user if they won or lost
         pygame.time.delay(1000) #wait one sec. bf drawing anything
@@ -135,7 +114,26 @@ while done == False:
                             guessed.append(ltr) #adds the letter to the screen if its in the word
                             if ltr not in word: #if you guess a letter that is NOT in the word
                                 hangman_status += 1
-        draw() #will run the code in draw
+        window.fill(WHITE)  # fill the window with white!
+        # draw word
+        display_word = ""
+        for letter in word:  # eg. in DEVELOPER, D, E, V,E L...
+            if letter in guessed:
+                display_word += letter + " "
+            else:  # do not display it, if not in word
+                display_word += "_ "
+        text = WORD_FONT.render(display_word, True, BLACK)
+        window.blit(text, (350, 200))
+        # draw buttons
+        for letter in letters:
+            x, y, ltr, visible = letter
+            if visible:  # by default, all buttons are visible (cause true)
+                pygame.draw.circle(window, BLACK, (x, y), RADIUS, 3)  # 3 thick
+                text = LETTER_FONT.render(ltr, 1, BLACK)
+                window.blit(text, (x - text.get_width() / 2, y - text.get_height() / 2))
+            # you want to draw the letters in the middle of button- go backwards and up
+        window.blit(images[hangman_status], (0, 0))  # blit stands for draw image, surface
+        pygame.display.update()
 
         won = True
         for letter in word: #if we loop through every letter in word and all are in guessed, won stays True
