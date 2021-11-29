@@ -53,7 +53,7 @@ def selectRandomWord(wordList): #this function selects a random string from the 
     indexOfWord = random.randint(0, len(wordList) - 1)
     return wordList[indexOfWord]
 
-word = selectRandomWord(wordList)
+#word = selectRandomWord(wordList)
 
 
 
@@ -71,11 +71,11 @@ def draw(): #drawing function,need to call draw() to do this
     display_word = ""
     for letter in word: #eg. in DEVELOPER, D, E, V,E L...
         if letter in guessed:
-            display_word += letter + "  "
+            display_word += letter + " "
         else: #do not display it, if not in word
             display_word += "_ "
     text = WORD_FONT.render(display_word, True, BLACK)
-    window.blit(text,(400, 200))
+    window.blit(text,(350, 200))
 
     #draw buttons
     for letter in letters:
@@ -94,8 +94,11 @@ def display_message(message):
     text = WORD_FONT.render(message, True, BLACK)
     window.blit(text,(250, 200))
     pygame.display.update()
-    pygame.time.delay(3000) #3 seconds
+    pygame.time.delay(4000) #3 seconds
 
+
+
+#the actual Code is here
 
 keypressed = True #while key has not been pressed
 while keypressed:
@@ -115,8 +118,8 @@ while keypressed:
         if event.type == pygame.KEYDOWN: #if a key has been pressed down, the code will proceed & show the hangman display
             keypressed = False
             break
-
-
+            
+word = selectRandomWord(wordList)
 
 while run:
     clock.tick(FPS) #tick at this speed
@@ -144,11 +147,11 @@ while run:
             won = False
             break
     if won:
-        display_message("You WON!")
+        display_message("You Won!")
         break
 
     if hangman_status == 8: #full limbs - you have lost! may need to change this number
-        display_message("You LOST!")
+        display_message("You Lost!")
         break
 
 pygame.quit()
