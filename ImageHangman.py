@@ -85,16 +85,16 @@ def draw(): #drawing function,need to call draw() to do this
             text = LETTER_FONT.render(ltr, 1, BLACK)
             window.blit(text,(x - text.get_width()/2,y - text.get_height()/2))
         #you want to draw the letters in the middle of button- go backwards and up
-    window.blit(images[hangman_status],(50,60))  # blit stands for draw image, surface
+    window.blit(images[hangman_status],(0,0))  # blit stands for draw image, surface
     pygame.display.update()
 
 def display_message(message):
     pygame.time.delay(1000) #wait one sec. bf drawing anything
     window.fill(WHITE)  # override everything on the screen
     text = WORD_FONT.render(message, True, BLACK)
-    window.blit(text,(WIDTH/2 - text.get_width()/2), HEIGHT/2 - text.get_height()/2) #theoretically the middle?
+    window.blit(text,(250, 200))
     pygame.display.update()
-    pygame.time.delay(3000)  # 3 seconds
+    pygame.time.delay(3000) #3 seconds
 
 
 keypressed = True #while key has not been pressed
