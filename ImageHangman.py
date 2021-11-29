@@ -1,5 +1,6 @@
 import pygame
 import math
+import sys
 import random
 
 pygame.init()
@@ -8,7 +9,7 @@ window = pygame.display.set_mode((WIDTH,HEIGHT)) #set the window to this width a
 pygame.display.set_caption("Let's play Hangman!")
 
 #Various fonts with different sizes
-LETTER_FONT = pygame.font.SysFont('comicsans',40)
+LETTER_FONT = pygame.font.SysFont('comicsans',38)
 WORD_FONT = pygame.font.SysFont('comicsans',60)
 TITLE_FONT = pygame.font.SysFont('comicsans',70)
 
@@ -58,7 +59,6 @@ word = selectRandomWord(wordList)
 
 
 
-
 #Set up game loop
 FPS = 60 #maximum FPS 60 frames/second
 clock = pygame.time.Clock()
@@ -92,15 +92,29 @@ def display_message(message):
     pygame.time.delay(1000) #wait one sec. bf drawing anything
     window.fill(WHITE)  # override everything on the screen
     text = WORD_FONT.render(message, True, BLACK)
-    window.blit(text, (WIDTH/2 - text.get_width()/2), HEIGHT/2 - text.get_height()/2) #theoretically the middle?
+    window.blit(text,(WIDTH/2 - text.get_width()/2), HEIGHT/2 - text.get_height()/2) #theoretically the middle?
     pygame.display.update()
     pygame.time.delay(3000)  # 3 seconds
 
-#window.fill(WHITE)
-#message = "Welcome to Hangman! You have 8 tries to guess the computer generated word. Please press enter to begin."
-#text = LETTER_FONT.render(message, True, BLACK)
-#window.blit(text,  )
-#pygame.time.delay(1000)
+
+keypressed = True #while key has not been pressed
+while keypressed:
+    window.fill(WHITE)
+    message = "Welcome to Hangman! You have 8 tries to guess the" #two messages bc it does not all fit in one line
+    message2 = "computer generated word. Please press enter to begin."
+    text = LETTER_FONT.render(message, True, BLACK)
+    text2 = LETTER_FONT.render(message2, True, BLACK)
+    window.blit(text,(20, 200))
+    window.blit(text2,(20,250))
+    pygame.display.update()
+
+    for event in pygame.event.get(): #this loop checks if events are occuring
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+        if event.type == pygame.KEYDOWN: #if a key has been pressed down, the code will proceed & show the hangman display
+            keypressed = False
+            break
 
 
 
