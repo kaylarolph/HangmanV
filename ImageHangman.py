@@ -4,69 +4,67 @@ import sys
 import random
 import time
 
-done = False
-while done == False: #while the user has not won the game, the code keeps running/will restart and let user play again
-    #Initial Settings and baseline Variables
-    pygame.init()
+#Initial Settings and baseline Variables
+pygame.init()
+clock = pygame.time.Clock()
 
-    #Defining the dimensions of the screen
-    window = pygame.display.set_mode((725,500)) #the window has the dimensions defined
-    pygame.display.set_caption("Hangman")
+#Defining the dimensions of the screen
+window = pygame.display.set_mode((725,500)) #the window has the dimensions defined
+pygame.display.set_caption("Hangman")
 
-    #Various fonts with varying sizes
-    LetterFont = pygame.font.SysFont('comicsans',38)
-    WordFont = pygame.font.SysFont('comicsans',60)
+#Various fonts with varying sizes
+LetterFont = pygame.font.SysFont('comicsans',38)
+WordFont = pygame.font.SysFont('comicsans',60)
 
-    #Colors and their corresponding coordinates
-    WHITE = (255,255,255)
-    BLACK = (0, 0 , 0)
+#Colors and their corresponding coordinates
+WHITE = (255,255,255)
+BLACK = (0, 0 , 0)
 
-    letters = [] #List that stores created buttons [x, y, chr(A+i), True]
-    for i in range(26): #for the 26 letters of the alphabet, store where it should be positioned
-        x = 40 + 55 *(i % 13) #x position of each letter button - 2 rows of 13
-        y = 400 + 55 * (i//13) #y position of each letter button
-        letters.append([x,y,chr(65 + i), True]) #stores pairs of x, y values into the list, letters A(65), B(66), C(67), and boolean (default = true) in each letter
+#def main():
+letters = [] #List that stores created buttons [x, y, chr(A+i), True]
+for i in range(26): #for the 26 letters of the alphabet, store where it should be positioned
+    x = 40 + 55 *(i % 13) #x position of each letter button - 2 rows of 13
+    y = 400 + 55 * (i//13) #y position of each letter button
+    letters.append([x,y,chr(65 + i), True]) #stores pairs of x, y values into the list, letters A(65), B(66), C(67), and boolean (default = true) in each letter
 
     #Loading the hangman images from the uploaded folder
-    folderimages = []
-    for i in range(9): #loops from 0 to 8, adding the 9 hangman images (ordered numerically) from the folder
-        image = pygame.image.load("Hangman_Images!/Hangman_Images! (" +  str(1+i) + ").png")
-        folderimages.append(image)
+folderimages = []
+for i in range(9): #loops from 0 to 8, adding the 9 hangman images (ordered numerically) from the folder
+    image = pygame.image.load("Hangman_Images!/Hangman_Images! (" +  str(1+i) + ").png")
+    folderimages.append(image)
 
         #Computer generated words
-    wordList = ["PYTHON", "PIZZA", "JAMES", "APPLE", "BANANA", "BLANKET", "EYE", "DOG", "CAT", "SHOE", "MAT", "PIZZA", "CUP",
+wordList = ["PYTHON", "PIZZA", "JAMES", "APPLE", "BANANA", "BLANKET", "EYE", "DOG", "CAT", "SHOE", "MAT", "PIZZA", "CUP",
             "YELLOW", "RED", "GREEN", "BLUE", "SELECT", "CAP", "USA", "FEUD", "UTAH", "PANTS", "FACE", "ADVANCED", "THERAPY",
              "PROVEN", "HEALTHY", "TEACHER", "STUDENT", "HOT", "COLD", "TISSUE", "SWEATER",
               "PUSH", "HAIR", "BLONDE", "BLOCK", "WORK", "MASK", "ROBOT", "TOUCH", "HAT", "ENTER", "TABLE", "CHAIR"
             ]
 
-    def selectRandomWord(wordList): #this function selects a random string from the the list of available strings
-        indexOfWord = random.randint(0, len(wordList) - 1)
-        return wordList[indexOfWord]
-
-
-#The actual code begins here
+def selectRandomWord(wordList): #this function selects a random string from the the list of available strings
+    indexOfWord = random.randint(0, len(wordList) - 1)
+    return wordList[indexOfWord]
 
     #Code for the welcome screen
-    keynotpressed = True #key has not been pressed
-    while keynotpressed:
-        window.fill(WHITE)
-        message = "Welcome to Hangman! You have 8 tries to guess the" #two messages bc it does not all fit in one line
-        message2 = "computer generated word. Please press enter to begin."
-        text = LetterFont.render(message, True, BLACK)
-        text2 = LetterFont.render(message2, True, BLACK)
-        window.blit(text,(20, 200))
-        window.blit(text2,(20,250))
-        pygame.display.update()
+keynotpressed = True #key has not been pressed
+while keynotpressed:
+    window.fill(WHITE)
+    message = "Welcome to Hangman! You have 8 tries to guess the" #two messages bc it does not all fit in one line
+    message2 = "computer generated word. Please press enter to begin."
+    text = LetterFont.render(message, True, BLACK)
+    text2 = LetterFont.render(message2, True, BLACK)
+    window.blit(text,(20, 200))
+    window.blit(text2,(20,250))
+    pygame.display.update()
 
-        for event in pygame.event.get(): #this loop checks if events are occuring
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.KEYDOWN: #if a key has been pressed down, the code will proceed & show the hangman display
-                keynotpressed = False
-                break
+    for event in pygame.event.get(): #this loop checks if events are occuring
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+        if event.type == pygame.KEYDOWN: #if a key has been pressed down, the code will proceed & show the hangman display
+            keynotpressed = False
+            break
 
+def main():
     #Code for the actual Hangman game
     hangman_status = 0
     guessedletters = [] #list that keeps track of letters guessed so far
@@ -107,7 +105,7 @@ while done == False: #while the user has not won the game, the code keeps runnin
             x, y, ltr, visible = letter
             if visible: #if the button is visible
                 pygame.draw.circle(window, BLACK, (x, y), 20, 3) #draw a black circle at position (x,y) w/ radius = 20 and circle thickness = 3
-                text = LetterFont.render(ltr, 1, BLACK) #I'M SO CONFSUEFEKSFKUJ fIX THIS
+                text = LetterFont.render(ltr, True, BLACK) #before True was 1?
                 window.blit(text, (x - text.get_width() / 2, y - text.get_height() / 2))
             # you want to draw the letters in the middle of button- go backwards and up
         window.blit(folderimages[hangman_status],(0, 0))
@@ -126,8 +124,8 @@ while done == False: #while the user has not won the game, the code keeps runnin
              text = WordFont.render("You Won!", True, BLACK)
              window.blit(text, (250, 200))
              pygame.display.update()
-             pygame.time.delay(4000)  #4 seconds
-             done = True
+             pygame.time.delay(4000) #4 seconds
+             #done = True
              break
 
         if hangman_status == 8: #full limbs - you have lost! may need to change this number
@@ -136,34 +134,34 @@ while done == False: #while the user has not won the game, the code keeps runnin
             text = WordFont.render("You Lost!", True, BLACK)
             window.blit(text, (250, 200))
             pygame.display.update()
-            pygame.time.delay(4000)  # 4 seconds
+            pygame.time.delay(4000) #4 seconds
+           # done = True  #new
+            break #new
 
-            buttonNotPressed = True  # key has not been pressed
-            while buttonNotPressed:
-                window.fill(WHITE)
-                message = "Press enter to play again!"  # two messages bc it does not all fit in one line
-                message2 = "If you don't press enter the game will quit in 10 sec."
-                text3 = LetterFont.render(message, True, BLACK)
-                text4 = LetterFont.render(message2, True, BLACK)
-                window.blit(text3, (20, 200))
-                window.blit(text4, (20, 250))
-                pygame.display.update()
+main()
 
-                for event in pygame.event.get():  # this loop checks if events are occuring
-                    if event.type==pygame.KEYDOWN:
-                        if event.key == pygame.K_SPACE:  # if a key has been pressed down, the code will proceed & show the hangman display
-                            done = True
-                            pygame.quit()
-                            sys.exit()
-                        else:
-                            buttonNotPressed = False
-                            done = False
-                            break
+#this code is part of the while loop which makes the hangman game able to be replayed - or not.
+buttonNotPressed = True #key has not been pressed
+while buttonNotPressed:
+    window.fill(WHITE)
+    message = "Press enter to play again!"  # two messages bc it does not all fit in one line
+    message2 = "If you don't press enter the game will quit in 10 sec."
+    text3 = LetterFont.render(message, True, BLACK)
+    text4 = LetterFont.render(message2, True, BLACK)
+    window.blit(text3, (20, 200))
+    window.blit(text4, (20, 250))
+    pygame.display.update()
 
+    for event in pygame.event.get():# this loop checks if events are occuring
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+        if event.type == pygame.KEYDOWN: #if a key has been pressed down
+            buttonNotPressed = False #button has been pressed
+            main()
 
-
-    #this code is part of the while loop which makes the hangman game able to be replayed - or not.
-    if done:
-        pygame.quit()
+           # else: #nothing is pressed - can set it with time
+               # pygame.quit()
+               # sys.exit()
 
 
