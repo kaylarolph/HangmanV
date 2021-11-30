@@ -68,43 +68,44 @@ while done == False: #while the user has not won the game, the code keeps runnin
     #Code for the actual Hangman game
     hangman_status = 0
     guessedletters = [] #list that keeps track of letters guessed so far
-    RADIUS = 20
     word = selectRandomWord(wordList)
     run = True
 
-    while run:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT: #when you click red x button on window
+    while run: #while the user wants to play the game and does NOT click quit
+        for event in pygame.event.get(): #Check for keyboard and mouse events
+            if event.type == pygame.QUIT: #if you click the close button at the top left of the screen
                 run = False
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                m_x, m_y = pygame.mouse.get_pos() #position of the mouse
+            if event.type == pygame.MOUSEBUTTONDOWN: #if you click on the screen
+                mouseXpos, mouseYpos = pygame.mouse.get_pos() #x and y coordinates of position clicked on screen
                 for letter in letters:
                     x, y, ltr, visible = letter
                     if visible:
-                        dis = math.sqrt((x - m_x)**2 + (y - m_y)**2) #distance between center of button and mouse pos.
-                        if dis < RADIUS: #if you have pressed a button
-                            letter[3] = False #no button shows
-                        #eg. letter[3] = false
-                        #[3, 4,"A", False] - not true anymore
-                            guessedletters.append(ltr) #adds the letter to the screen if its in the word
+                        xDistance = x-mouseXpos #x distance between center of button and mouse position
+                        yDistance = y-mouseYpos #y distance between center of button and mouse position
+                        totalDis = math.sqrt((xDistance)**2 + (yDistance)**2) #total distance between center of button and mouse position
+                        if totalDis < 20: #if you have pressed a button (radius = 20)
+                            guessedletters.append(ltr) #adds the letter to the screen if it is in word
+                            letter[3] = False #visible boolean is now false - no button or letter will show as an option anymore
                             if ltr not in word: #if you guess a letter that is NOT in the word
-                                hangman_status += 1
+                                hangman_status += 1 #adds a body part to the hangman
         window.fill(WHITE)  # fill the window with white!
-        # draw word
-        display_word = ""
-        for letter in word:  # eg. in DEVELOPER, D, E, V,E L...
-            if letter in guessedletters:
-                display_word += letter + " "
-            else:  # do not display it, if not in word
-                display_word += "_ "
-        text = WordFont.render(display_word, True, BLACK)
+
+        #Draw the word
+        displayWord = ""
+        for letter in word: #Traverses through each letter in the computer-selected word
+            if letter in guessedletters: #if the letter has been guessed, display it
+                displayWord += letter + " "
+            else: #if the letter has not been guessed, do NOT display it
+                displayWord += "_ "
+        text = WordFont.render(displayWord, True, BLACK) #draw what should be displayed to the screen
         window.blit(text, (350, 200))
-        # draw buttons
-        for letter in letters:
+
+        #Draw the buttons
+        for letter in letters: #Traverses through each letter that has been guessed
             x, y, ltr, visible = letter
-            if visible:  # by default, all buttons are visible (cause true)
-                pygame.draw.circle(window, BLACK, (x, y), RADIUS, 3)  # 3 thick
-                text = LetterFont.render(ltr, 1, BLACK)
+            if visible: #if the button is visible
+                pygame.draw.circle(window, BLACK, (x, y), 20, 3) #draw a black circle at position (x,y) w/ radius = 20 and circle thickness = 3
+                text = LetterFont.render(ltr, 1, BLACK) #I'M SO CONFSUEFEKSFKUJ fIX THIS
                 window.blit(text, (x - text.get_width() / 2, y - text.get_height() / 2))
             # you want to draw the letters in the middle of button- go backwards and up
         window.blit(folderimages[hangman_status],(0, 0))
