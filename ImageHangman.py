@@ -14,8 +14,7 @@ while done == False: #while the user has not won the game, the code keeps runnin
 
     #Various fonts with varying sizes
     LetterFont = pygame.font.SysFont('comicsans',38)
-    WORD_FONT = pygame.font.SysFont('comicsans',60)
-    TITLE_FONT = pygame.font.SysFont('comicsans',70)
+    WordFont = pygame.font.SysFont('comicsans',60)
 
     #Colors and their corresponding coordinates
     WHITE = (255,255,255)
@@ -100,7 +99,7 @@ while done == False: #while the user has not won the game, the code keeps runnin
                 display_word += letter + " "
             else:  # do not display it, if not in word
                 display_word += "_ "
-        text = WORD_FONT.render(display_word, True, BLACK)
+        text = WordFont.render(display_word, True, BLACK)
         window.blit(text, (350, 200))
         # draw buttons
         for letter in letters:
@@ -123,7 +122,7 @@ while done == False: #while the user has not won the game, the code keeps runnin
         if won:
              pygame.time.delay(1000)  # wait one sec. bf drawing anything
              window.fill(WHITE)  # override everything on the screen
-             text = WORD_FONT.render("You Won!", True, BLACK)
+             text = WordFont.render("You Won!", True, BLACK)
              window.blit(text, (250, 200))
              pygame.display.update()
              pygame.time.delay(4000)  #4 seconds
@@ -133,7 +132,7 @@ while done == False: #while the user has not won the game, the code keeps runnin
         if hangman_status == 8: #full limbs - you have lost! may need to change this number
             pygame.time.delay(1000)  # wait one sec. bf drawing anything
             window.fill(WHITE)  # override everything on the screen
-            text = WORD_FONT.render("You Lost!", True, BLACK)
+            text = WordFont.render("You Lost!", True, BLACK)
             window.blit(text, (250, 200))
             pygame.display.update()
             pygame.time.delay(4000)  # 4 seconds
