@@ -2,6 +2,7 @@ import pygame
 import math
 import sys
 import random
+import time
 
 done = False
 while done == False: #while the user has not won the game, the code keeps running/will restart and let user play again
@@ -38,6 +39,7 @@ while done == False: #while the user has not won the game, the code keeps runnin
              "PROVEN", "HEALTHY", "TEACHER", "STUDENT", "HOT", "COLD", "TISSUE", "SWEATER",
               "PUSH", "HAIR", "BLONDE", "BLOCK", "WORK", "MASK", "ROBOT", "TOUCH", "HAT", "ENTER", "TABLE", "CHAIR"
             ]
+
     def selectRandomWord(wordList): #this function selects a random string from the the list of available strings
         indexOfWord = random.randint(0, len(wordList) - 1)
         return wordList[indexOfWord]
@@ -135,8 +137,33 @@ while done == False: #while the user has not won the game, the code keeps runnin
             window.blit(text, (250, 200))
             pygame.display.update()
             pygame.time.delay(4000)  # 4 seconds
-            done = False
-            break
+
+            buttonNotPressed = True  # key has not been pressed
+            while buttonNotPressed:
+                window.fill(WHITE)
+                message = "Press enter to play again!"  # two messages bc it does not all fit in one line
+                message2 = "If you don't press enter the game will quit in 10 sec."
+                text3 = LetterFont.render(message, True, BLACK)
+                text4 = LetterFont.render(message2, True, BLACK)
+                window.blit(text3, (20, 200))
+                window.blit(text4, (20, 250))
+                pygame.display.update()
+
+                for event in pygame.event.get():  # this loop checks if events are occuring
+                    if event.type==pygame.KEYDOWN:
+                        if event.key == pygame.K_SPACE:  # if a key has been pressed down, the code will proceed & show the hangman display
+                            done = True
+                            pygame.quit()
+                            sys.exit()
+                        else:
+                            buttonNotPressed = False
+                            done = False
+                            break
+
+
+
     #this code is part of the while loop which makes the hangman game able to be replayed - or not.
     if done:
         pygame.quit()
+
+
