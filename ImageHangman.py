@@ -20,9 +20,6 @@ while done == False: #while the user has not won the game, the code keeps runnin
     WHITE = (255,255,255)
     BLACK = (0, 0 , 0)
 
-    #Buttons for letters A-Z
-    RADIUS = 20 #move this to more releveant location
-
     letters = [] #List that stores created buttons [x, y, chr(A+i), True]
     for i in range(26): #for the 26 letters of the alphabet, store where it should be positioned
         x = 40 + 55 *(i % 13) #x position of each letter button - 2 rows of 13
@@ -71,6 +68,7 @@ while done == False: #while the user has not won the game, the code keeps runnin
     #Code for the actual Hangman game
     hangman_status = 0
     guessedletters = [] #list that keeps track of letters guessed so far
+    RADIUS = 20
     word = selectRandomWord(wordList)
     run = True
 
