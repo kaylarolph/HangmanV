@@ -12,6 +12,9 @@ clock = pygame.time.Clock()
 window = pygame.display.set_mode((725,500)) #the window has the dimensions defined
 pygame.display.set_caption("Hangman")
 
+#can u get this?
+
+
 #Various fonts with varying sizes
 LetterFont = pygame.font.SysFont('comicsans',38)
 WordFont = pygame.font.SysFont('comicsans',60)
