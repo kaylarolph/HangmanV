@@ -20,13 +20,6 @@ WordFont = pygame.font.SysFont('comicsans',60)
 WHITE = (255,255,255)
 BLACK = (0, 0 , 0)
 
-#def main():
-#letters = [] #List that stores created buttons [x, y, chr(A+i), True]
-#for i in range(26): #for the 26 letters of the alphabet, store where it should be positioned
-    #x = 40 + 55 *(i % 13) #x position of each letter button - 2 rows of 13
-    #y = 400 + 55 * (i//13) #y position of each letter button
-    #letters.append([x,y,chr(65 + i), True]) #stores pairs of x, y values into the list, letters A(65), B(66), C(67), and boolean (default = true) in each letter
-
     #Loading the hangman images from the uploaded folder
 folderimages = []
 for i in range(9): #loops from 0 to 8, adding the 9 hangman images (ordered numerically) from the folder
@@ -142,8 +135,12 @@ def main():
         if hangman_status == 8: #full limbs - you have lost! may need to change this number
             pygame.time.delay(1000)  # wait one sec. bf drawing anything
             window.fill(WHITE)  # override everything on the screen
-            text = WordFont.render("You Lost!", True, BLACK)
-            window.blit(text, (250, 200))
+            message = "You Lost!"
+            message2 = "Your word was " + word
+            text = WordFont.render(message, True, BLACK)
+            text2 = WordFont.render(message2, True, BLACK)
+            window.blit(text,(250, 200))
+            window.blit(text2,(170, 275))
             pygame.display.update()
             pygame.time.delay(4000) #4 seconds
             break #new
