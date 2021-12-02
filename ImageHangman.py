@@ -12,9 +12,6 @@ clock = pygame.time.Clock()
 window = pygame.display.set_mode((725,500)) #the window has the dimensions defined
 pygame.display.set_caption("Hangman")
 
-#can u get this?
-
-
 #Various fonts with varying sizes
 LetterFont = pygame.font.SysFont('comicsans',38)
 WordFont = pygame.font.SysFont('comicsans',60)
@@ -24,11 +21,11 @@ WHITE = (255,255,255)
 BLACK = (0, 0 , 0)
 
 #def main():
-letters = [] #List that stores created buttons [x, y, chr(A+i), True]
-for i in range(26): #for the 26 letters of the alphabet, store where it should be positioned
-    x = 40 + 55 *(i % 13) #x position of each letter button - 2 rows of 13
-    y = 400 + 55 * (i//13) #y position of each letter button
-    letters.append([x,y,chr(65 + i), True]) #stores pairs of x, y values into the list, letters A(65), B(66), C(67), and boolean (default = true) in each letter
+#letters = [] #List that stores created buttons [x, y, chr(A+i), True]
+#for i in range(26): #for the 26 letters of the alphabet, store where it should be positioned
+    #x = 40 + 55 *(i % 13) #x position of each letter button - 2 rows of 13
+    #y = 400 + 55 * (i//13) #y position of each letter button
+    #letters.append([x,y,chr(65 + i), True]) #stores pairs of x, y values into the list, letters A(65), B(66), C(67), and boolean (default = true) in each letter
 
     #Loading the hangman images from the uploaded folder
 folderimages = []
@@ -68,6 +65,13 @@ while keynotpressed:
             break
 
 def main():
+    letters = []  # List that stores created buttons [x, y, chr(A+i), True]
+    for i in range(26):  # for the 26 letters of the alphabet, store where it should be positioned
+        x = 40 + 55 * (i % 13)  # x position of each letter button - 2 rows of 13
+        y = 400 + 55 * (i // 13)  # y position of each letter button
+        letters.append([x, y, chr(65 + i),
+                        True])  # stores pairs of x, y values into the list, letters A(65), B(66), C(67), and boolean (default = true) in each letter
+
     #Code for the actual Hangman game
     hangman_status = 0
     guessedletters = [] #list that keeps track of letters guessed so far
@@ -138,33 +142,36 @@ def main():
             window.blit(text, (250, 200))
             pygame.display.update()
             pygame.time.delay(4000) #4 seconds
-           # done = True  #new
             break #new
 
-main()
+def replay():
+    buttonNotPressed = True #key has not been pressed
+    while buttonNotPressed:
+        window.fill(WHITE)
+        message = "Press enter to play again!"  # two messages bc it does not all fit in one line
+        message2 = "If you don't press enter the game will quit in 10 sec."
+        text3 = LetterFont.render(message, True, BLACK)
+        text4 = LetterFont.render(message2, True, BLACK)
+        window.blit(text3, (20, 200))
+        window.blit(text4, (20, 250))
+        pygame.display.update()
 
-#this code is part of the while loop which makes the hangman game able to be replayed - or not.
-buttonNotPressed = True #key has not been pressed
-while buttonNotPressed:
-    window.fill(WHITE)
-    message = "Press enter to play again!"  # two messages bc it does not all fit in one line
-    message2 = "If you don't press enter the game will quit in 10 sec."
-    text3 = LetterFont.render(message, True, BLACK)
-    text4 = LetterFont.render(message2, True, BLACK)
-    window.blit(text3, (20, 200))
-    window.blit(text4, (20, 250))
-    pygame.display.update()
-
-    for event in pygame.event.get():# this loop checks if events are occuring
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-        if event.type == pygame.KEYDOWN: #if a key has been pressed down
-            buttonNotPressed = False #button has been pressed
-            main()
+        for event in pygame.event.get():# this loop checks if events are occuring
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN: #if a key has been pressed down
+                buttonNotPressed = False #button has been pressed
+                main()
 
            # else: #nothing is pressed - can set it with time
                # pygame.quit()
                # sys.exit()
+main()
 
+
+
+replay()
+replay()
+replay()
 
