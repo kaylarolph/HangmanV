@@ -32,7 +32,7 @@ wordList = ["PYTHON", "PIZZA", "JAMES", "APPLE", "BANANA", "BLANKET", "EYE", "DO
             "FLAG", "EGG", "HAMMER", "BELL", "SHOP", "SPONGE", "TRAVEL", "SNAKE", "CAMERA", "COMB", "BOOK", "MOUSE", "SONG", "ICE",
             "CAR", "GLUE", "TREE", "BEE", "FIRE", "PENCIL", "VOTE", "ROCKET", "KNIFE", "SONG", "MONEY", "PAINT",
             "HOLD", "JUNIOR", "SENIOR", "STANDS", "NOTE", "WORD", "EVERY", "DRIVE", "MARCH", "TREE", "MEN", "WOMEN", "HENCE", "STAIR", "LOWER", "HERE",
-            "SPITE", "SOFT", "SPEAK"
+            "SPITE", "SOFT", "SPEAK", "JAZZ", "SQUISH", "SQUASH"
             ]
 
 def selectRandomWord(wordList): #this function chooses a random word
