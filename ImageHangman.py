@@ -130,6 +130,7 @@ def main():
              pygame.display.update()
              pygame.time.delay(4000) #4 seconds
              #done = True
+             #meep
              break
 
         if hangman_status == 8: #full limbs - you have lost! may need to change this number
