@@ -170,7 +170,7 @@ def replay():
 main()
 
 
-
+replay()
 replay()
 replay()
 replay()
