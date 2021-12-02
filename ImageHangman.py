@@ -37,7 +37,11 @@ for i in range(9): #loops from 0 to 8, adding the 9 hangman images (ordered nume
 wordList = ["PYTHON", "PIZZA", "JAMES", "APPLE", "BANANA", "BLANKET", "EYE", "DOG", "CAT", "SHOE", "MAT", "PIZZA", "CUP",
             "YELLOW", "RED", "GREEN", "BLUE", "SELECT", "CAP", "USA", "FEUD", "UTAH", "PANTS", "FACE", "ADVANCED", "THERAPY",
              "PROVEN", "HEALTHY", "TEACHER", "STUDENT", "HOT", "COLD", "TISSUE", "SWEATER",
-              "PUSH", "HAIR", "BLONDE", "BLOCK", "WORK", "MASK", "ROBOT", "TOUCH", "HAT", "ENTER", "TABLE", "CHAIR"
+              "PUSH", "HAIR", "BLONDE", "BLOCK", "WORK", "MASK", "ROBOT", "TOUCH", "HAT", "ENTER", "TABLE", "CHAIR", "HORSE","COFFEE", "TEA",
+            "FLAG", "EGG", "HAMMER", "BELL", "SHOP", "SPONGE", "TRAVEL", "SNAKE", "CAMERA", "COMB", "BOOK", "MOUSE", "SONG", "ICE",
+            "CAR", "GLUE", "TREE", "BEE", "FIRE", "PENCIL", "VOTE", "ROCKET", "KNIFE", "SONG", "MONEY", "PAINT",
+            "HOLD", "JUNIOR", "SENIOR", "STANDS", "NOTE", "WORD", "EVERY", "DRIVE", "MARCH", "TREE", "MEN", "WOMEN", "HENCE", "STAIR", "LOWER", "HERE",
+            "SPITE", "SOFT", "SPEAK"
             ]
 
 def selectRandomWord(wordList): #this function selects a random string from the the list of available strings
@@ -149,7 +153,7 @@ def replay():
     while buttonNotPressed:
         window.fill(WHITE)
         message = "Press enter to play again!"  # two messages bc it does not all fit in one line
-        message2 = "Press the red X (top left corner) to quit"
+        message2 = "Press the red X (top left corner) to quit!"
         text3 = LetterFont.render(message, True, BLACK)
         text4 = LetterFont.render(message2, True, BLACK)
         window.blit(text3, (20, 200))
