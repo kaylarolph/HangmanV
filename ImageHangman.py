@@ -149,7 +149,7 @@ def replay():
     while buttonNotPressed:
         window.fill(WHITE)
         message = "Press enter to play again!"  # two messages bc it does not all fit in one line
-        message2 = "If you don't press enter the game will quit in 10 sec."
+        message2 = "Press the red X (top left corner) to quit"
         text3 = LetterFont.render(message, True, BLACK)
         text4 = LetterFont.render(message2, True, BLACK)
         window.blit(text3, (20, 200))
@@ -169,9 +169,8 @@ def replay():
                # sys.exit()
 main()
 
+again = True
+while again:
+    replay()
 
-replay()
-replay()
-replay()
-replay()
 
